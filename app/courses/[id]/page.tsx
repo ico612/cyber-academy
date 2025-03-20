@@ -76,11 +76,14 @@ const courses = [
   }
 ]
 
-export default async function CoursePage({
-  params,
-}: {
-  params: { id: string }
-}) {
+interface PageProps {
+  params: {
+    id: string;
+  };
+  searchParams: { [key: string]: string | string[] | undefined };
+}
+
+export default function CoursePage({ params, searchParams }: PageProps) {
   const course = courses.find(c => c.id === parseInt(params.id))
 
   if (!course) {
