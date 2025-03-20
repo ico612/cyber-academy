@@ -1,3 +1,4 @@
+import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 // Simulo un database di corsi
@@ -76,7 +77,28 @@ const courses = [
   }
 ]
 
-export default function Page({ params }: { params: { id: string } }) {
+type Props = {
+  params: {
+    id: string;
+  };
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const course = courses.find(c => c.id === parseInt(params.id))
+  
+  if (!course) {
+    return {
+      title: 'Corso non trovato'
+    }
+  }
+
+  return {
+    title: course.title,
+    description: course.description,
+  }
+}
+
+export default function Page({ params }: Props) {
   const courseId = parseInt(params.id)
   const course = courses.find(c => c.id === courseId)
 
