@@ -76,7 +76,13 @@ const courses = [
   }
 ]
 
-export default function CoursePage({ params }: { params: { id: string } }) {
+type Props = {
+  params: {
+    id: string
+  }
+}
+
+export default function CoursePage({ params }: Props) {
   const course = courses.find(c => c.id === parseInt(params.id))
 
   if (!course) {
